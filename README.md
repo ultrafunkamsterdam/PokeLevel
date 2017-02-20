@@ -18,8 +18,10 @@ Clone this repo on the same level (so not IN the bot folder but aside, preferabl
 
 You need to install https://github.com/PokemonGoF/PokemonGo-Bot/ in a different folder (follow instructions from author)
 
-**Accounts file = accountsfile.csv**   (auth,username,password,Y)  *Y = available, N = not available. So perfect for a map/bot combo to skip accounts that are currently working in a map environment -> (N)ot available.
-**Settings file = scriptconfig.conf**
+#### Accounts file = accountsfile.csv  in the form : auth,username,password,Y
+Y = available, N = not available. 
+So perfect for a map/bot combo to skip accounts that are currently working in a map environment -> (N)ot available.
+#### Settings file = scriptconfig.conf
 In scriptconfig.conf, specify the installdir of PokemonGo-Bot, add your gmaps key and Bossland Hash Key, and you're good to go!
 
 
