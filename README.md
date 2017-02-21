@@ -14,7 +14,7 @@ All adventures will be logged in a folder per account, and each account get's a 
 After each run there will be a small overview showing account's level,xp,stardust,pokemon etc.
 
 ##**Installation**
-Clone this repo on the same level (so not IN the bot folder but aside, preferably in a user-writeable folder. Check permissions before starting. On first run, you might have to install gpw and jq (small helper tools for random name and parsion json), but this will be detected by run.sh.
+Clone this repo on the same level (so not IN the bot folder but aside, preferably in a user-writeable folder. Check permissions before starting. On first run, you might have to install gpw and jq (small helper tools for random name and parsing json), but this will be detected by run.sh.
 
 You need to install https://github.com/PokemonGoF/PokemonGo-Bot/ in a different folder (follow instructions from author)
 
