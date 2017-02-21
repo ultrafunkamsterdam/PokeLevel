@@ -117,18 +117,7 @@ function LoopCSV(){
 	   ACCOUNTS+=("$username")
 	done
 	
-	#Logger "Success" "Finished! Here a quick overview of your accounts level"
-	
-	#for i in "${ACCOUNTS[@]}"
-	#do
-	#ReturnAccount $i
-	#echo -n "$i -> " && echo -n $( cat log/$(ls -1 log | grep -Ei $i) | grep -io 'level.*next.*total' ) && echo -e "\n"
-	#sleep 1
-	#done
-	
-	#[[ $? -eq 0 ]] && return 0 || return 1
-	
-	
+	Logger "Success" "Finished! Finito! Bye bye!"
 	
 }
 
