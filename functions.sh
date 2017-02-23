@@ -118,7 +118,10 @@ GenerateNick(){
 }
 
 CreateConfig(){
+	#[[ -z $1 ]] && Logger "error" " CreateConfig() : Expecting accountname" && return 1
+	#username=$1
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
+	
 	Logger "info" "CreateConfig() : Creating configuration file for $username (team: $TEAM) in $POGOBOT_CONFIGFOLDER/$username/$username.json"
 	
 	[[ ${TEAM^^} == "YELLOW" ]] && TEAM="3"
@@ -131,19 +134,21 @@ CreateConfig(){
 }
 
 CreateAuthConfig(){
+	#[[ -z $1 ]] && Logger "error" " CreateAuthConfig() : Expecting accountname" && return 1
+	#username=$1
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.auth.json ]] && POGOBOT_AUTHCONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
+	
 	Logger "Info" "CreateAuthConfig() : Creating Auth configuration file for $username in $POGOBOT_CONFIGFOLDER/$username/$username.auth.json"
 	
 	HASH_KEY=$HASH_KEY1
 	
-	if [ ! -z $HASH_KEY1 ] && [ ! -z $HASH_KEY2 ]
-	then 
+	if [ ! -z $HASH_KEY1 ] && [ ! -z $HASH_KEY2 ];then 
 		HASHKEY1_USEAMOUNT=$(grep -Rio "$HASH_KEY1" $THISPATH/config/* | wc -l )
 		HASHKEY2_USEAMOUNT=$(grep -Rio "$HASH_KEY2" $THISPATH/config/* | wc -l )
 		if [ "$HASHKEY1_USEAMOUNT" -gt "$HASHKEY2_USEAMOUNT" ]
 		then 
 		  HASH_KEY=$HASH_KEY2
-		else 
+		  else 
 		  HASH_KEY=$HASH_KEY1
 		fi 
 	fi
@@ -153,15 +158,16 @@ CreateAuthConfig(){
 
 
 GetAccount(){
+	#[[ -z $@ ]] && Logger "error" " GetAccount() : No accountname given" && return 1
 	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',N' $ACCOUNTS_FILE
 	[[ $? -eq 0 ]] && return 0 || return 1
 }
 
 ReturnAccount(){
+	#[[ -z $@ ]] && Logger "error" " ReturnAccount() : No account details received, or perhaps no account was running at this moment" && return 1
 	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',Y' $ACCOUNTS_FILE
 	exitcode=$?
 	Logger "Success" "Account $b is being returned as available in $ACCOUNTS_FILE "
-	sleep 1
 	return 0
 }
 
@@ -169,16 +175,21 @@ URLS=()
 
 KillSingle()
 {
-	ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 &>/dev/null && return 0
+ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 &>/dev/null && return 0
 }
 
 Reader(){
    while read -r RAW; do
    Logger info "$RAW"
    echo $RAW >> "$LOGFOLDER/$(Date)-$username.log"
-   echo $RAW | grep -i -e "captcha encountered" -e "Server busy or offline, reconnecting" -e "Login process failed"
+   echo $RAW | grep -i -e "captcha encountered" -e "Server busy or offline, reconnecting" -e "Login process failed" -e "decode byte 0x9c in position"
    if [ "$?" -eq "0" ]; then KillSingle; fi
+   #url="$(echo "$RAW" | grep -i "captcha" | sed -n -e 's/^.*\encountered, url: //p')"
+   #[[ $url ]] && Logger "Error" "Captcha Discovered with url : $url , moving to the next account ... " && pkill -2 -f $username && echo -e "captcha for accounr $1" >> "$THISPATH/accounts_with_captcha.txt" && return 0
+   #busy="$(echo "$RAW" | grep -i "Server busy or offline, reconnecting")"
+   #[[ $busy ]] && Logger "Server busy or offline .. skipping .. " && sleep 3 &&	ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 && return
    done
+  
 }
 
 
@@ -195,49 +206,50 @@ NumberTotal()
 {
 	cat $ACCOUNTS_FILE | grep -v ^$ | wc -l
 }
-
 NumberAvailable()
 {
 	cat $ACCOUNTS_FILE | grep -iE ',Y$' | wc -l
 }
-
 NumberNotAvailable()
 {
 	cat $ACCOUNTS_FILE | grep -iE ',N$' | wc -l
 }
 
+
 Main(){
-	clear
-	echo -e "\n\n"
-	 Logger start " [ https://github.com/ultrafunkamsterdam ]"    
-	 Logger " Accounts total       : $(NumberTotal)"
-	 Logger " Available for run    : $(NumberAvailable)      "  
-	 echo -e "\n" 
-	 Logger " Account starting now : $username               "
-	 Logger " Location             : ${LOCATION}			 "
-	 Logger " Team(to be)          : ${TEAM}				 "
-	 Logger " Timer                : $TIME_RUN seconds 	     "          
-	echo -e "\n"									
-	sleep 5
-	Logger Success "Starting Bot ... "
-	for i in {00..30}; do echo -n -e ". " && sleep 0.1;done
-	return 0
+clear
+echo -e "\n\n"
+ Logger start " [ https://github.com/ultrafunkamsterdam ]         "    
+ Logger " Accounts total       : $(NumberTotal)	        	  "
+ Logger " Available for run    : $(NumberAvailable)               "  
+ echo -e "\n" 
+ Logger " Account starting now : $username              	  "
+ Logger " Location             : ${LOCATION}			  "
+ Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow)  "
+ Logger " Timer                : $TIME_RUN seconds 	          "          
+echo -e "\n"									
+sleep 5
+Logger Success "Starting Bot ... "
+for i in {00..30}; do echo -n -e ". " && sleep 0.1;done
+return 0
 }
+
 
 ACCOUNTS=()
 CAPTCHAURLS=()
 
 LoopCSV(){
 
-	while [ "$(NumberAvailable)" -gt "1" ];do
+while [ "$(NumberAvailable)" -gt "1" ];do
+	
 	IFS=, read a b c d <<< "$(cat $ACCOUNTS_FILE | grep -iE ",Y$" | head -n 1)"
 	auth=$a && username=$b && password=$c && available=$d
 	ACCOUNTS=("${ACCOUNTS[@]}" "$a,$b,$c,$d")
 	Main
 	GetAccount 
 	CreateConfig 
-	CreateAuthConfig
+        CreateAuthConfig
 	StartBot
 	sleep 1
-	done
+done
 }
