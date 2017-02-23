@@ -1,9 +1,9 @@
 # **PokeLevel beta 2** #
 
-## [Check super short Demo Video] ~~(https://vimeo.com/204947444)~~ ##
-please don't.. it has the super ugly old interface from 3 days ago. Updated video will be posted soon.
+## Video wil follow as the old one is already 3 days old. ;)
 
-> ##CHANGELOG:
+
+> ## CHANGELOG:
 > 1. Cleaner and better Interface and typography
 > 2. Support for ctrl+c. Script will return any running accounts and shuts down correctly.
 > 3. Checks for encountered Captcha's or "Busy/Offline servers", writes a log, and proceeds to the next account immediately.
@@ -11,7 +11,7 @@ please don't.. it has the super ugly old interface from 3 days ago. Updated vide
 > 5. Checks for available accounts PER round instead of one time on start, so you can make accounts available by hand live and they will > 6. be picked up again. Also useful if you run multiple instances of the script. (  :):):)  )
 > 7. Script stops when there are no available accounts left.
 > 8. Some stuff i forgot
-##
+> ##
 
 ## Level up your accounts 1 by 1 from a CSV by a given 'run' time per account.
 
