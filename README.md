@@ -1,7 +1,6 @@
-# **PokeLevel beta 2** #
+# **PokeLevel beta 2 - Quickly and recursively level your (new) Pogo accounts**  #
 
-## Video wil follow as the old one is already 3 days old. ;)
-
+#### Video wil follow as the old one is already 3 days old. ;)
 
 > ## CHANGELOG:
 > 1. Cleaner and better Interface and typography
@@ -11,7 +10,9 @@
 > 5. Checks for available accounts PER round instead of one time on start, so you can make accounts available by hand live and they will > 6. be picked up again. Also useful if you run multiple instances of the script. (  :):):)  )
 > 7. Script stops when there are no available accounts left.
 > 8. Some stuff i forgot
-> ##
+
+
+### IMPORTANT: You should chmod the complete folder. From within the folder itself, it's been done by : chmod 775 -R .
 
 ## Level up your accounts 1 by 1 from a CSV by a given 'run' time per account.
 
