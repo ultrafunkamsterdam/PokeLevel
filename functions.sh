@@ -119,11 +119,13 @@ GenerateNick(){
 CreateConfig(){
 	[[ -z $1 ]] && Logger "error" " CreateConfig() : Expecting accountname" && return 1
 	username=$1
+	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
+	
 	Logger "info" "CreateConfig() : Creating configuration file for $username (team: $TEAM) in $POGOBOT_CONFIGFOLDER/$username/$username.json"
 	[[ ${TEAM^^} == "YELLOW" ]] && TEAM="3"
 	[[ ${TEAM^^} == "RED" ]] && TEAM="2"
 	[[ ${TEAM^^} == "BLUE" ]] && TEAM="1"
-	[[ -d $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
+	
 	[[ ! -d $POGOBOT_CONFIGFOLDER/$username ]] && mkdir $POGOBOT_CONFIGFOLDER/$username
 	cat $POGOBOT_BASE_CONFIGFILE | jq .tasks[2].config.nickname="\"$(GenerateNick)\"" |  jq .tasks[2].config.team="$TEAM" > $POGOBOT_CONFIGFOLDER/tmpcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.json
 	[[ $? -eq 0 ]] && return 0 || return 1
@@ -132,8 +134,10 @@ CreateConfig(){
 CreateAuthConfig(){
 	[[ -z $1 ]] && Logger "error" " CreateAuthConfig() : Expecting accountname" && return 1
 	username=$1
-	Logger "Info" "CreateAuthConfig() : Creating Auth configuration file for $username in $POGOBOT_CONFIGFOLDER/$username/$username.auth.json"
+	
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.auth.json ]] && POGOBOT_AUTHCONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
+	
+	Logger "Info" "CreateAuthConfig() : Creating Auth configuration file for $username in $POGOBOT_CONFIGFOLDER/$username/$username.auth.json"
 	
 	HASH_KEY=$HASH_KEY1
 	
