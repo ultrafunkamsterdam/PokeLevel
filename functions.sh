@@ -142,7 +142,7 @@ CreateAuthConfig(){
 	HASH_KEY=$HASH_KEY1
 	
 	if [ ! -z $HASH_KEY1 ] && [ ! -z $HASH_KEY2 ];then 
-		HASHKEY1_USEAMOUNT=$(grep -Rio "$HASH_KEY" config/* | wc -l )
+		HASHKEY1_USEAMOUNT=$(grep -Rio "$HASH_KEY1" config/* | wc -l )
 		HASHKEY2_USEAMOUNT=$(grep -Rio "$HASH_KEY2" config/* | wc -l )
 		if [ "$HASHKEY1_USEAMOUNT" -gt "$HASHKEY2_USEAMOUNT" ]
 		then 
