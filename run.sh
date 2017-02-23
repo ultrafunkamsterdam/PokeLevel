@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 #
-# ===============================================
-#	PokeLevel beta 2
+#=========*=========*=========*=========*=========*
+#	PokeLevel Beta 2 
 #	Author : UltrafunkAmsterdam
 #	https://www.github.com/UltrafunkAmsterdam
-# ==============================================
+#=========*=========*=========*=========*=========*
 #
+#	run.sh 
+
 PID=$$
 THISPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $THISPATH
