@@ -246,5 +246,11 @@ while [ "$(NumberAvailable)" -gt "1" ];do
 	ACCOUNTS+=("$username")
 	sleep 5
 done
+clear
+echo -e "\n\n"
+Logger start " [ https://github.com/ultrafunkamsterdam ]"  
+Logger success "All accounts have been processed ... "
+Logger info "Putting them back to available (Y) in CSV"  
+for account in "${ACCOUNTS[@]}"; do ReturnAccount $account ; done
 
 }
