@@ -238,7 +238,7 @@ while [ "$(NumberAvailable)" -gt "1" ];do
 	CreateConfig $username 
     CreateAuthConfig $username
 	StartBot
-	ReturnAccount $username
+	#ReturnAccount $username
 	ACCOUNTS+=("$username")
 	sleep 5
 done
