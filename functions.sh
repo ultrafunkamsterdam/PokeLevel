@@ -67,6 +67,8 @@ Usage()
 StopSelf()
 {
 	Logger info "Shutting down .. "
+	for account in "${ACCOUNTS[@]}";do IFS=, read a b c d <<< "$account"; ReturnAccount $a $b $c $d ; done
+	echo -e "\n"
 	Logger info "Thank you for using PokeLevel"
 	ps -ef | grep -E "[r]un.sh" | awk '{print $2}' | xargs kill -9
 	kill -9 $PID
@@ -95,11 +97,10 @@ IsInstalled()
 
 ReceivedExit(){
 	clear
+	Logger start " [ https://github.com/ultrafunkamsterdam ]" 
 	Logger success "Received ctrl+c or other interruption signal .. " ;
 	Logger info "Quitting running session of account $username .." ; sleep 1
 	ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9
-	Logger success "Succesfullly shut down .. Returning account" ; sleep 1
-	ReturnAccount $username
 	StopSelf && exit
 }
 
@@ -122,6 +123,7 @@ CreateConfig(){
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
 	
 	Logger "info" "CreateConfig() : Creating configuration file for $username (team: $TEAM) in $POGOBOT_CONFIGFOLDER/$username/$username.json"
+	
 	[[ ${TEAM^^} == "YELLOW" ]] && TEAM="3"
 	[[ ${TEAM^^} == "RED" ]] && TEAM="2"
 	[[ ${TEAM^^} == "BLUE" ]] && TEAM="1"
@@ -134,7 +136,6 @@ CreateConfig(){
 CreateAuthConfig(){
 	[[ -z $1 ]] && Logger "error" " CreateAuthConfig() : Expecting accountname" && return 1
 	username=$1
-	
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.auth.json ]] && POGOBOT_AUTHCONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
 	
 	Logger "Info" "CreateAuthConfig() : Creating Auth configuration file for $username in $POGOBOT_CONFIGFOLDER/$username/$username.auth.json"
@@ -163,7 +164,7 @@ GetAccount(){
 }
 
 ReturnAccount(){
-	[[ -z $1 ]] && Logger "error" " ReturnAccount() : No accountname given, or no account was running at the moment" && return 1
+	[[ -z $@ ]] && Logger "error" " ReturnAccount() : No account details received, or perhaps no account was running at this moment" && return 1
 	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',Y' $ACCOUNTS_FILE
 	exitcode=$?
 	Logger "Success" "Account $username is being returned as available in $ACCOUNTS_FILE "
@@ -238,19 +239,14 @@ while [ "$(NumberAvailable)" -gt "1" ];do
 	IFS=, read a b c d <<< "$(cat $ACCOUNTS_FILE | grep -iE ',Y' | head -n 1)"
 	auth=$a && username=$b && password=$c && available=$d
 	Main
+	ACCOUNTS+=("$auth,$username,$password,$available")
 	GetAccount $username
 	CreateConfig $username 
     CreateAuthConfig $username
 	StartBot
-	#ReturnAccount $username
-	ACCOUNTS+=("$username")
 	sleep 5
 done
+
 clear
-echo -e "\n\n"
-Logger start " [ https://github.com/ultrafunkamsterdam ]"  
-Logger success "All accounts have been processed ... "
-Logger info "Putting them back to available (Y) in CSV"  
-for account in "${ACCOUNTS[@]}"; do ReturnAccount $account ; done
 
 }
