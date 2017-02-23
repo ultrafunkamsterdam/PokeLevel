@@ -32,6 +32,7 @@ Logger start " [ https://github.com/ultrafunkamsterdam ]         "
 Logger " Total accounts in CSV            : $(NumberTotal)       "
 Logger " Number of available accounts     : $(NumberAvailable)   "
 Logger " Number of not available accounts : $(NumberNotAvailable)"
+Logger " Amount of runtime per account    : $TIME_RUN            "
 echo -e "\n"
 Logger "When accounts become available while the script is running, they will be picked up automatically."
 sleep 7
