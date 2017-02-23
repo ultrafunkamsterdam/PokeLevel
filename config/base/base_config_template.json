@@ -1,7 +1,7 @@
 {
     "websocket_server": false,
     "heartbeat_threshold": 10,
-    "enable_social": true,
+    "enable_social":false,
     "live_config_update": {
         "enabled": false,
         "tasks_only": false
@@ -150,7 +150,7 @@
                 "evolve_above_cp": 100,
                 "evolve_above_iv": 0.3,
                 "logic": "or",
-                "evolve_speed": 20,
+                "min_evolve_speed": 5,
                 "min_pokemon_to_be_evolved": 5,
                 "use_lucky_egg": false
             }
