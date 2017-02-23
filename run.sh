@@ -26,7 +26,6 @@ IsInstalled jq gpw
 #echo "XxXxXx"  ## replace by a string that will be the first part of the username so don't use common words
 #}
 
-
 clear
 echo -e "\n\n"
 Logger start " [ https://github.com/ultrafunkamsterdam ]         "    
@@ -35,11 +34,13 @@ Logger " Number of available accounts     : $(NumberAvailable)   "
 Logger " Number of not available accounts : $(NumberNotAvailable)"
 echo -e "\n"
 Logger "When accounts become available while the script is running, they will be picked up automatically."
-sleep 6
+sleep 7
 Logger "Starting Bots "
-for i in {00..20}; do echo -n -e ". " && sleep 0.1;done   
+sleep 1
 clear
+
 LoopCSV
 
 StopSelf
+
 #end
