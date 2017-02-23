@@ -36,8 +36,8 @@ Logger " Number of not available accounts : $(NumberNotAvailable)"
 echo -e "\n"
 Logger "When accounts become available while the script is running, they will be picked up automatically."
 sleep 6
-Logger "Starting Bots ... "
-for i in {00..30}; do echo -n -e ". " && sleep 0.1;done   
+Logger "Starting Bots "
+for i in {00..20}; do echo -n -e ". " && sleep 0.1;done   
 clear
 LoopCSV
 
