@@ -11,7 +11,7 @@
 > 7. Script stops when there are no available accounts left.
 > 8. Some stuff i forgot
 
-### the bug with buddy awards can be fixed by adding this code block to /pokemongo_bot/cell_workers/buddy_pokemon.py: line 135
+### the bug with buddy awards can be fixed by adding this code block to /pokemongo_bot/cell_workers/buddy_pokemon.py: line 135###
 
 ```if not 'last_km_awarded' in self.buddy or ('last_km_awarded' in self.buddy and not isinstance(self.buddy['last_km_awarded'],int)):
             self.buddy['last_km_awarded']=0
