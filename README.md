@@ -10,6 +10,7 @@
 > 5. Checks for available accounts PER round instead of one time on start, so you can make accounts available by hand live and they will > 6. be picked up again. Also useful if you run multiple instances of the script. (  :):):)  )
 > 7. Script stops when there are no available accounts left.
 > 8. Some stuff i forgot
+
 ### the bug with buddy awards can be fixed by adding this cccode block to /pokemongo_bot/cell_workers/buddy_pokemon.py: line 135
 '''
 if not 'last_km_awarded' in self.buddy or ('last_km_awarded' in self.buddy and not isinstance(self.buddy['last_km_awarded'],int)):
