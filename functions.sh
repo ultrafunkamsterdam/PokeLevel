@@ -242,7 +242,7 @@ CAPTCHAURLS=()
 
 LoopCSV(){
 
-while [ "$(NumberAvailable)" -gt "1" ];do
+while [ "$(NumberAvailable)" -ge "1" ];do
 	
 	IFS=, read a b c d <<< "$(cat $ACCOUNTS_FILE | grep -iE ",Y$" | head -n 1)"
 	auth=$a && username=$b && password=$c && available=$d
