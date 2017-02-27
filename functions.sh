@@ -120,6 +120,8 @@ GenerateNick(){
 CreateConfig(){
 	#[[ -z $1 ]] && Logger "error" " CreateConfig() : Expecting accountname" && return 1
 	#username=$1
+	[[ -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak ]] || mv -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak && mv POGOBOT_CONFIGFOLDER/base/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py
+	
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
 	
 	Logger "info" "CreateConfig() : Creating configuration file for $username (team: $TEAM) in $POGOBOT_CONFIGFOLDER/$username/$username.json"
@@ -175,7 +177,7 @@ URLS=()
 
 KillSingle()
 {
-ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 &>/dev/null && return 0
+    ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 &>/dev/null && return 0
 }
 
 Reader(){
@@ -219,14 +221,14 @@ NumberNotAvailable()
 Main(){
 clear
 echo -e "\n\n"
- Logger start " [ https://github.com/ultrafunkamsterdam ]         "    
- Logger " Accounts total       : $(NumberTotal)	        	  "
- Logger " Available for run    : $(NumberAvailable)               "  
- echo -e "\n" 
- Logger " Account starting now : $username              	  "
- Logger " Location             : ${LOCATION}			  "
- Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow)  "
- Logger " Timer                : $TIME_RUN seconds 	          "          
+Logger start " [ https://github.com/ultrafunkamsterdam ]          "    
+Logger " Accounts total       : $(NumberTotal)	        	  "
+Logger " Available for run    : $(NumberAvailable)                "  
+echo -e "\n" 
+Logger " Account starting now : $username              		  "
+Logger " Location             : ${LOCATION}			  "
+Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow)   "
+Logger " Timer                : $TIME_RUN seconds 	          "          
 echo -e "\n"									
 sleep 5
 Logger Success "Starting Bot ... "
