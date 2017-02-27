@@ -120,7 +120,7 @@ GenerateNick(){
 CreateConfig(){
 	#[[ -z $1 ]] && Logger "error" " CreateConfig() : Expecting accountname" && return 1
 	#username=$1
-	[[ -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak ]] || mv -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak && mv POGOBOT_CONFIGFOLDER/base/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py
+	[[ -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak ]] || mv -f $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py.bak && mv $POGOBOT_CONFIGFOLDER/base/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py
 	
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.json ]] && POGOBOT_CONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
 	
