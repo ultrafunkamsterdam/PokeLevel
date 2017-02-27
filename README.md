@@ -1,4 +1,5 @@
 # **PokeLevel beta 2 - Quickly and recursively level your (new) Pogo accounts**  #
+## New accounts to level 4 in 5 minutes. "Magical" level 2 in < 2 minutes  ##
 
 #### Video wil follow as the old one is already 3 days old. ;)
 
