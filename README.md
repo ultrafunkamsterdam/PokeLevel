@@ -4,6 +4,7 @@
 #### Video wil follow as the old one is already 3 days old. ;)
 
 > ## CHANGELOG:
+> **Fixed buddy issue and tested new accounts. lvl 4 in 300 sec**
 > 1. Cleaner and better Interface and typography
 > 2. Support for ctrl+c. Script will return any running accounts and shuts down correctly.
 > 3. Checks for encountered Captcha's or "Busy/Offline servers", writes a log, and proceeds to the next account immediately.
