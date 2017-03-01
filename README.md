@@ -6,15 +6,15 @@
 # **Quickly and recursively level your PoGo accounts!**
 
 ### Features PokeLevel Script
-##### * [  new accounts ] Auto nickname, outfit, starter, accept-tos, buddy and level 3/4 in 100 sec! Picks team at level 5
-##### * Iterates over your accounts CSV and runs each account for a given time. (default 300 sec)
-##### * Set account in CSV being (Not) Available. Useful for mapping accounts to alternate which gives more human-like behaviour
-##### * Hashing Key Support (2 keys)
-##### * Live account list editing. The script looks for available accounts per round.
-##### * Stops automatically when done and puts accounts back available.
-##### * Live output monitoring. Skips or quits on severe errors
-##### * Log file, config.json, and cache stored in a  folder per account
-##### * Highly customizable
+ * [  new accounts ] Auto nickname, outfit, starter, accept-tos, buddy and level 3/4 in 100 sec! Picks team at level 5
+ * Iterates over your accounts CSV and runs each account for a given time. (default 300 sec)
+ * Set account in CSV being (Not) Available. Useful for mapping accounts to alternate which gives more human-like behaviour
+ * Hashing Key Support (2 keys)
+ * Live account list editing. The script looks for available accounts per round.
+ * Stops automatically when done and puts accounts back available.
+ * Live output monitoring. Skips or quits on severe errors
+ * Log file, config.json, and cache stored in a  folder per account
+ * Highly customizable
 
 ## Installation
  
