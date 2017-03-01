@@ -13,7 +13,7 @@ PID=$$
 THISPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $THISPATH
 
-. scriptconfig.sh
+. scriptconfig.conf
 . functions.sh
 
 clear
