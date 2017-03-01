@@ -11,7 +11,7 @@
 
 PID=$$
 THISPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-cd $THISPATH
+cd "${THISPATH}"
 
 . scriptconfig.conf
 . functions.sh
@@ -20,13 +20,16 @@ clear
 echo -e "\n\n"
 Logger start " [ SETUP PokemonGo-Bot for PokeLevel ] " 
 echo -e "\n"
+Logger info "Setting permissions for PokeLevel"
+chmod 775 . > /dev/null
+echo -e "\n"
 Logger "PokeLevel will install PokemonGo-Bot from https://github.com/PokemonGoF/PokemonGo-Bot"
 Logger "Recommended setup will be installing to $THISPATH/PokemonGo-Bot, so PokeLevel needs a minimum of configuration adjustments" 
 Logger "In case you definitely want another installation folder, you need to \
 correctly modify scriptconfig.conf and make sure you have non-sudo/root access to the folder"
 
 echo -e "${BIWhi} \n"
-read -p 'Installation folder (leave empty for defaults)  :' INSTALLDIR
+read -p 'Installation folder | just press enter for default (recommended) :' INSTALLDIR
 echo -e "${Re} \n"
 clear
 
