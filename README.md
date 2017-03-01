@@ -23,6 +23,7 @@ The BOT and API need python2.7 ,pip, nodejs, grunt,python-virtualenv which will 
 .
 ``` bash
 git clone https://github.com/ultrafunkamsterdam/PokeLevel.git
+cd PokeLevel
 ./install.sh
 ```
 
