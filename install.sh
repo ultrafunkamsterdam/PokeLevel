@@ -21,7 +21,7 @@ echo -e "\n\n"
 Logger start " [ SETUP PokemonGo-Bot for PokeLevel ] " 
 echo -e "\n"
 Logger info "Setting permissions for PokeLevel"
-chmod 775 . > /dev/null
+chmod -R 775 . > /dev/null
 echo -e "\n"
 Logger "PokeLevel will install PokemonGo-Bot from https://github.com/PokemonGoF/PokemonGo-Bot"
 Logger "Recommended setup will be installing to $THISPATH/PokemonGo-Bot, so PokeLevel needs a minimum of configuration adjustments" 
