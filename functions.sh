@@ -196,11 +196,13 @@ Reader(){
 
 
 StartBot(){
-	cd $POGOBOT_PATH
+	cd "${POGOBOT_PATH}"
 	. bin/activate
 	touch "$LOGFOLDER/$(Date)-$username.log"
 	python ./pokecli.py -af "$POGOBOT_CONFIGFOLDER/$username/$username.auth.json" -cf "$POGOBOT_CONFIGFOLDER/$username/$username.json" 2>&1 | Reader &
-	sleep $TIME_RUN && ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -2 && sleep 8 && Logger "success" "Account $username went through the botting session." && sleep 2
+	sleep $TIME_RUN && ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -2 && sleep 4 && Logger success "Account $username went through the botting session." && sleep 2
+        deactivate
+	cd "${THISPATH}"
 	return 0
 }
 
