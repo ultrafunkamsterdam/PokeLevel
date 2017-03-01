@@ -143,32 +143,32 @@ CreateAuthConfig(){
 	
 	HASH_KEY=$HASH_KEY1
 	
-	if [ ! -z $HASH_KEY1 ] && [ ! -z $HASH_KEY2 ];then 
-		HASHKEY1_USEAMOUNT=$(grep -Rio "$HASH_KEY1" $THISPATH/config/* | wc -l )
-		HASHKEY2_USEAMOUNT=$(grep -Rio "$HASH_KEY2" $THISPATH/config/* | wc -l )
-		if [ "$HASHKEY1_USEAMOUNT" -gt "$HASHKEY2_USEAMOUNT" ]
+	if [ ! -z ${HASH_KEY1} ] && [ ! -z ${HASH_KEY2} ];then 
+		HASHKEY1_USEAMOUNT=$(grep -Rio "$HASH_KEY1" ${THISPATH}/config/* | wc -l )
+		HASHKEY2_USEAMOUNT=$(grep -Rio ${HASH_KEY2} ${THISPATH}/config/* | wc -l )
+		if [ "${HASHKEY1_USEAMOUNT}" -gt "${HASHKEY2_USEAMOUNT}" ]
 		then 
-		  HASH_KEY=$HASH_KEY2
+		  HASH_KEY="${HASH_KEY2}"
 		  else 
-		  HASH_KEY=$HASH_KEY1
+		  HASH_KEY="${HASH_KEY1}"
 		fi 
 	fi
-	cat $POGOBOT_BASE_AUTHCONFIGFILE | jq .auth_service="\"$auth\"" |  jq .username="\"$username\"" | jq .password="\"$password\"" | jq .location="\"$LOCATION\"" | jq .gmapkey="\"$GMAPS_KEY\"" | jq .hashkey="\"$HASH_KEY\"" > $POGOBOT_CONFIGFOLDER/tmpauthcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpauthcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.auth.json && POGOBOT_AUTHCONFIGFILE="$POGOBOT_CONFIGFOLDER/$username/$username.json"
+	cat ${POGOBOT_BASE_AUTHCONFIGFILE} | jq .auth_service="\"$auth\"" |  jq .username="\"$username\"" | jq .password="\"$password\"" | jq .location="\"$LOCATION\"" | jq .gmapkey="\"$GMAPS_KEY\"" | jq .hashkey="\"$HASH_KEY\"" > $POGOBOT_CONFIGFOLDER/tmpauthcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpauthcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.auth.json && POGOBOT_AUTHCONFIGFILE="$POGOBOT_CONFIGFOLDER/$username/$username.json"
 	[[ $? -eq 0 ]] && return 0 || return 1
 }
 
 
 GetAccount(){
 	#[[ -z $@ ]] && Logger "error" " GetAccount() : No accountname given" && return 1
-	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',N' $ACCOUNTS_FILE
+	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',N' ${ACCOUNTS_FILE}
 	[[ $? -eq 0 ]] && return 0 || return 1
 }
 
 ReturnAccount(){
 	#[[ -z $@ ]] && Logger "error" " ReturnAccount() : No account details received, or perhaps no account was running at this moment" && return 1
-	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',Y' $ACCOUNTS_FILE
+	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',Y' ${ACCOUNTS_FILE}
 	exitcode=$?
-	Logger "Success" "Account $b is being returned as available in $ACCOUNTS_FILE "
+	Logger "Success" "Account $b is being returned as available in ${ACCOUNTS_FILE} "
 	return 0
 }
 
@@ -197,9 +197,9 @@ Reader(){
 StartBot(){
 	cd "${POGOBOT_PATH}"
 	. bin/activate
-	touch "$LOGFOLDER/$(Date)-$username.log"
-	python ./pokecli.py -af "$POGOBOT_CONFIGFOLDER/$username/$username.auth.json" -cf "$POGOBOT_CONFIGFOLDER/$username/$username.json" 2>&1 | Reader &
-	sleep $TIME_RUN && ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -2 && sleep 8 && Logger "success" "Account $username went through the botting session." && sleep 2
+	touch "${LOGFOLDER}/$(Date)-${username}.log"
+	python ./pokecli.py -af "${POGOBOT_CONFIGFOLDER}/${username}/${username}.auth.json" -cf "${POGOBOT_CONFIGFOLDER}/$username/$username.json" 2>&1 | Reader &
+	sleep ${TIME_RUN} && ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -2 && sleep 8 && Logger "success" "Account ${username} went through the botting session." && sleep 2
 	deactivate
 	cd "${THISPATH}"
 	return 0
@@ -207,29 +207,29 @@ StartBot(){
 
 NumberTotal()
 {
-	cat $ACCOUNTS_FILE | grep -v ^$ | wc -l
+	cat "${ACCOUNTS_FILE}" | grep -v ^$ | wc -l
 }
 NumberAvailable()
 {
-	cat $ACCOUNTS_FILE | grep -iE ',Y$' | wc -l
+	cat "${ACCOUNTS_FILE}" | grep -iE ',Y$' | wc -l
 }
 NumberNotAvailable()
 {
-	cat $ACCOUNTS_FILE | grep -iE ',N$' | wc -l
+	cat "${ACCOUNTS_FILE}" | grep -iE ',N$' | wc -l
 }
 
 
 Main(){
 clear
 echo -e "\n\n"
-Logger start " [ https://github.com/ultrafunkamsterdam ]          "    
-Logger " Accounts total       : $(NumberTotal)	        	  "
-Logger " Available for run    : $(NumberAvailable)                "  
+Logger start " [ https://github.com/ultrafunkamsterdam ]        "    
+Logger " Accounts total       : $(NumberTotal)	        	      "
+Logger " Available for run    : $(NumberAvailable)              "  
 echo -e "\n" 
-Logger " Account starting now : $username              		  "
-Logger " Location             : ${LOCATION}			  "
-Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow)   "
-Logger " Timer                : $TIME_RUN seconds 	          "          
+Logger " Account starting now : ${username}              		      "
+Logger " Location             : ${LOCATION}			                "
+Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow) "
+Logger " Timer                : ${TIME_RUN} seconds 	            "          
 echo -e "\n"									
 sleep 5
 Logger Success "Starting Bot ... "
@@ -245,7 +245,7 @@ LoopCSV(){
 
 while [ "$(NumberAvailable)" -ge "1" ];do
 	
-	IFS=, read a b c d <<< "$(cat $ACCOUNTS_FILE | grep -iE ",Y$" | head -n 1)"
+	IFS=, read a b c d <<< "$(cat ${ACCOUNTS_FILE} | grep -iE ",Y$" | head -n 1)"
 	auth=$a && username=$b && password=$c && available=$d
 	ACCOUNTS=("${ACCOUNTS[@]}" "$a,$b,$c,$d")
 	Main
