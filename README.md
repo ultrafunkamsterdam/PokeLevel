@@ -1,4 +1,7 @@
-[![](http://img4.imagetitan.com/img4/9NVRKfrYJTcOl4d/15/15_pokelevel.png)]()  
+
+![PokeLevel](http://i.imgur.com/XHKPxy3.pngg)
+
+
 ## **Beta 3**
 # **Quickly and recursively level your PoGo accounts!**
 
@@ -12,8 +15,7 @@
 ##### * Live output monitoring. Skips or quits on severe errors
 ##### * Log file, config.json, and cache stored in a  folder per account
 ##### * Highly customizable
- .
- 
+
 ## Installation
  
 #### PokeLevel itself requires [JQ](https://stedolan.github.io/jq/) and [GPW](https://packages.debian.org/gpw) to run. These will be installed through install.sh.
@@ -25,7 +27,7 @@ git clone https://github.com/ultrafunkamsterdam/PokeLevel.git
 ```
 
 #### Modify scriptconfig.conf and accounts.csv to your needs. Be carefull not to erase quotes or other signs
-#### Modify accountsfile.csv | 1 account per line in the form: csv (no whitespaces or empty lines)
+#### Modify accountsfile.csv | 1 account per line in the form of CSV (no whitespaces, headers or empty lines)
 ```
 ptc,username,password,Y
 ptc,username2,password,Y
@@ -53,7 +55,6 @@ google,username@gmail.com,password,Y
 * Hatch eggs
 * Incubate eggs
 
-.
 ##### Made possible by the hard work and efforts of: 
 ### [PokemonGof Team ](https://github.com/PokemonGoF)
 ### [POGODEVORG](https://github.com/pogodevorg)
