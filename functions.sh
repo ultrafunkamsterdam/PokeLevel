@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 #=========*=========*=========*=========*=========*
-#	PokeLevel beta 2
+#	PokeLevel beta 3
 #	Author : UltrafunkAmsterdam
 #	https://www.github.com/UltrafunkAmsterdam
 #=========*=========*=========*=========*=========*
