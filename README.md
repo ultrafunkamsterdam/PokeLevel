@@ -1,44 +1,62 @@
-# **PokeLevel beta 2 - Quickly and recursively level your (new) Pogo accounts**  #
-## New accounts to level 4 in 5 minutes. "Magical" level 2 in < 2 minutes  ##
 
-#### Video wil follow as the old one is already 3 days old. ;)
+![PokeLevel](http://i.imgur.com/XHKPxy3.pngg)
 
-> ## CHANGELOG:
-> 1. Fixed buddy issue. Tested new accounts > level 4 in 300 seconds. level 2 in < 120 seconds.
-> 2. Cleaner and better Interface and typography
-> 3. Support for ctrl+c. Script will return any running accounts and shuts down correctly.
-> 4. Checks for encountered Captcha's or "Busy/Offline servers", writes a log, and proceeds to the next account immediately.
-> 5. Support for second HASH key
-> 6. Checks for available accounts PER round instead of one time on start, so you can make accounts available by hand live and they will > 7. be picked up again. Also useful if you run multiple instances of the script. (  :):):)  )
-> 8. Script stops when there are no available accounts left.
-> 9. Some stuff i forgot
-##
 
-### IMPORTANT: You should chmod the complete folder. From within the folder itself, it's been done by : chmod 775 -R .
+## **Beta 3**
+# **Quickly and recursively level your PoGo accounts!**
 
-## Level up your accounts 1 by 1 from a CSV by a given 'run' time per account.
+### Features PokeLevel Script
+##### * [  new accounts ] Auto nickname, outfit, starter, accept-tos, buddy and level 3/4 in 100 sec! Picks team at level 5
+##### * Iterates over your accounts CSV and runs each account for a given time. (default 300 sec)
+##### * Set account in CSV being (Not) Available. Useful for mapping accounts to alternate which gives more human-like behaviour
+##### * Hashing Key Support (2 keys)
+##### * Live account list editing. The script looks for available accounts per round.
+##### * Stops automatically when done and puts accounts back available.
+##### * Live output monitoring. Skips or quits on severe errors
+##### * Log file, config.json, and cache stored in a  folder per account
+##### * Highly customizable
 
-Script will generate nickname, outfit and starter Pokemon and will join a team at level 5.
+## Installation
+ 
+#### PokeLevel itself requires [JQ](https://stedolan.github.io/jq/) and [GPW](https://packages.debian.org/gpw) to run. These will be installed through install.sh.
+The BOT and API need python2.7 ,pip, nodejs, grunt,python-virtualenv which will be installed automatically too!
+.
+``` bash
+git clone https://github.com/ultrafunkamsterdam/PokeLevel.git
+./install.sh
+```
 
-Each account in your CSV will run for (let's say) 300 seconds to complete tutorials, catch pokemon and loot pokestops.
-Perfect for fresh accounts to level up so they can be used in maps.
-Perfect to schedule at night, to give your mapping-slaves a more 'human-like' behaviour.
+#### Modify scriptconfig.conf and accounts.csv to your needs. Be carefull not to erase quotes or other signs
+#### Modify accountsfile.csv | 1 account per line in the form of CSV (no whitespaces, headers or empty lines)
+```
+ptc,username,password,Y
+ptc,username2,password,Y
+google,username@gmail.com,password,Y
+```
+#### To run:
+```bash
+./run.sh
+```
 
-All runs will be logged in a folder per account, and each account get's a json config, cache and log.
+##### Features PokemonGo-Bot
+* Search Pokestops
+* Catch Pokemon
+* Complete tutorial
+* Choose team
+* Customizable throw accuracy, walking speed, sleeping schedules, buddy's, lucky-egg use, exclude or vip pokemon
+* Determine which pokeball to use (uses Razz Berry if the catch percentage is low!)
+* Exchange Pokemon as per configuration
+* Evolve Pokemon as per configuration
+* Auto switch mode (Inventory Checks - switches between catch/farming items)
+* Limit the step to farm specific area for pokestops
+* Rudimentary IV Functionality filter
+* Ignore certain pokemon filter
+* Adjust delay between Pokemon capture & Transfer as per configuration
+* Hatch eggs
+* Incubate eggs
 
-##**Installation**
-Clone this repo on the same level (so not IN the bot folder but aside, preferably in a user-writeable folder. Check permissions before starting. On first run, you might have to install gpw and jq (small helper tools for random name and parsing json), but this will be detected by run.sh.
-Oh, cloning correctly (console) : `git clone --recursive https://github.com/ultrafunkamsterdam/PokeLevel.git PokeLevel` to clone into a folder called PokeLevel, change to your wishes.
+##### Made possible by the hard work and efforts of: 
+### [PokemonGof Team ](https://github.com/PokemonGoF)
+### [POGODEVORG](https://github.com/pogodevorg)
+### [BossLand GMBH](https://www.bossland-gmbh.com)
 
-You need to install https://github.com/PokemonGoF/PokemonGo-Bot/ in a different folder (follow instructions from authors), basically just clone recursively, and run ./setup.sh-i 
-you could even ctrl+c when asked for account details, and config creation as the script manages the configs.
-
-### Accounts file = accountsfile.csv  in the form : auth,username,password,Y
-Y = available, N = not available. 
-So perfect for a map/bot combo to skip accounts that are currently working in a map environment -> (N)ot available. When the account is selected by the script, Y will change to N. Afterwards the account finished running, it will put back to Y again.
-### Settings file = scriptconfig.conf
-In scriptconfig.conf, specify the installdir of PokemonGo-Bot, add your gmaps key and Bossland Hash Key, and you're good to go!
-**IMPORTANT:** If you do not use a second hash key, please make it **HASH_KEY2=** instead of the example HASH_KEY2="123456789"
-### Running from console :   ./run.sh 
-
-This is the beta from the beta the betast, so don't shoot me if it's not working. It's been tested on Ubuntu 16.04 by me and CentOS by Kafeijao. Limited support only!

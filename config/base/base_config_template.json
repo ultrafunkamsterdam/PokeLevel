@@ -37,7 +37,7 @@
 		"type": "BuddyPokemon",
 		"config": {
 			"enabled": true,
-			"buddy_list": "dratini, magikarp, bulbasaur, charmander, squirtle, pikachu, snorlax, lapras, pidgey",
+			"buddy_list": "dratini, magikarp, bulbasaur, charmander, squirtle, pikachu, snorlax, lapras, pidgey, natu, rattata, Dratini, Bulbasaur, Charmander, Pikachu, Snorlax, Lapras, Pidgey, Rattata",
 			"best_in_family": true,
 			"// candy_limit = 0 means no limit, so it will never change current buddy": {},
 			"candy_limit": 8,
