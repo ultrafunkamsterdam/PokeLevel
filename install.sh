@@ -35,6 +35,14 @@ clear
 
 [[ ! -z "$INSTALLDIR" ]] && mkdir -f $INSTALLDIR || INSTALLDIR=$THISPATH/PokemonGo-Bot ; 
 Logger "starting installation" 
+Logger "Checking prerequisites"
+
+reqs=
+for x in python2.7 pip node nodejs npm grunt virtualenv; do 
+which $x || { echo -e "Requirement $x is needed" && reqs+="$x " ; }
+done
+for x in $reqs;do sudo apt -y -qq install $x; done
+
 echo -e "${BIWhi} \n"
 git clone --recursive https://github.com/PokemonGoF/PokemonGo-Bot.git $INSTALLDIR ; RV=$?
 [[ $RV -eq 0 ]] || Logger error "Something went wrong installing, error code $RV"
