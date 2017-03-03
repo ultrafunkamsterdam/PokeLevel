@@ -39,7 +39,7 @@ Logger "Checking prerequisites"
 echo -e "${BIWhi} \n"
 reqs=
 for x in python2.7 pip nodejs npm virtualenv; do 
-which $x || { Logger warn "Requirement $x is needed" && reqs+="$x " ; }
+which $x >/dev/null || { Logger warn "Requirement $x is needed" && reqs+="$x " ; }
 done
 sleep 2
 Logger info "Trying to install requirements .."
