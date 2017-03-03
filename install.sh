@@ -36,7 +36,7 @@ clear
 [[ ! -z "$INSTALLDIR" ]] && mkdir -f $INSTALLDIR || INSTALLDIR=$THISPATH/PokemonGo-Bot ; 
 Logger "starting installation" 
 Logger "Checking prerequisites"
-
+echo -e "${BIWhi} \n"
 reqs=
 for x in python2.7 pip nodejs npm virtualenv; do 
 which $x || { Logger warn "Requirement $x is needed" && reqs+="$x " ; }
@@ -45,10 +45,17 @@ sleep 2
 Logger info "Trying to install requirements .."
 sleep 2
 if [ ! -z "$reqs" ];then
-  for x in $reqs;do sudo apt -y -qq install $x; done
+  for x in $reqs;do sudo apt -y -qq install $x && Logger success "$x successfully installed .." ; done
 fi
-
-echo -e "${BIWhi} \n"
+if node -v | grep -e "^v6" >/dev/null ;then
+		Logger success "NodeJS is is currently installed";
+else
+    Logger info "Updating NodeJS .. "
+		curl -sL https://deb.nodesource.com/setup_6.x >/dev/null | sudo -E bash - >/dev/null
+		sudo apt-get install nodejs 
+fi
+sleep 2
+Logger success "
 git clone --recursive https://github.com/PokemonGoF/PokemonGo-Bot.git $INSTALLDIR ; RV=$?
 [[ $RV -eq 0 ]] || Logger error "Something went wrong installing, error code $RV"
 
