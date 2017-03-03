@@ -38,10 +38,15 @@ Logger "starting installation"
 Logger "Checking prerequisites"
 
 reqs=
-for x in python2.7 pip node nodejs npm grunt virtualenv; do 
-which $x || { echo -e "Requirement $x is needed" && reqs+="$x " ; }
+for x in python2.7 pip nodejs npm virtualenv; do 
+which $x || { Logger warn "Requirement $x is needed" && reqs+="$x " ; }
 done
-for x in $reqs;do sudo apt -y -qq install $x; done
+sleep 2
+Logger info "Trying to install requirements .."
+sleep 2
+if [ ! -z "$reqs" ];then
+  for x in $reqs;do sudo apt -y -qq install $x; done
+fi
 
 echo -e "${BIWhi} \n"
 git clone --recursive https://github.com/PokemonGoF/PokemonGo-Bot.git $INSTALLDIR ; RV=$?
