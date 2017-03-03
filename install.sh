@@ -55,7 +55,7 @@ else
 		sudo apt-get install nodejs 
 fi
 sleep 2
-Logger success "
+Logger success "Prerequisites are likely to be installed now"
 git clone --recursive https://github.com/PokemonGoF/PokemonGo-Bot.git $INSTALLDIR ; RV=$?
 [[ $RV -eq 0 ]] || Logger error "Something went wrong installing, error code $RV"
 
