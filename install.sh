@@ -54,12 +54,11 @@ cd $INSTALLDIR
 mv -f $INSTALLDIR/pokemongo_bot/cell_workers/buddy_pokemon.py $INSTALLDIR/pokemongo_bot/cell_workers/buddy_pokemon.py.bak
 cp -f $POGOBOT_CONFIGFOLDER/base/buddy_pokemon.py $POGOBOT_PATH/pokemongo_bot/cell_workers/buddy_pokemon.py
 clear
+Logger start " [ SETUP PokemonGo-Bot for PokeLevel ] " 
 Logger success "PokemonGo-Bot is installed"
 Logger "next step:"
 Logger "Modify PokeLevel's scriptconfig.conf file and build the accountsfile.csv (both are in the PokeLevel folder) "
-sleep 2
 echo -e "\n"
+sleep 3
 Logger "Happy Levelling"
-
-
-StopSelf
+sleep 6 && exit 0
