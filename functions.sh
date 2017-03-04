@@ -135,10 +135,8 @@ CreateConfig(){
 }
 
 CreateAuthConfig(){
-	#[[ -z $1 ]] && Logger "error" " CreateAuthConfig() : Expecting accountname" && return 1
-	#username=$1
+
 	[[ -f $POGOBOT_CONFIGFOLDER/$username/$username.auth.json ]] && POGOBOT_AUTHCONFIGFILE=$POGOBOT_CONFIGFOLDER/$username/$username.json && return 0 
-	
 	Logger "Info" "CreateAuthConfig() : Creating Auth configuration file for $username in $POGOBOT_CONFIGFOLDER/$username/$username.auth.json"
 	
 	HASH_KEY=$HASH_KEY1
@@ -159,14 +157,13 @@ CreateAuthConfig(){
 
 
 GetAccount(){
-	#[[ -z $@ ]] && Logger "error" " GetAccount() : No accountname given" && return 1
-	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',N' ${ACCOUNTS_FILE}
+	sed -i '/'"$b"',''/c'"$a"','"$b"','"$c"',N' ${ACCOUNTS_FILE}
+	Logger "Success" "Account $b is going for a spin, so this account is marked N(ot) available in your accountlist ${ACCOUNTS_FILE} "
 	[[ $? -eq 0 ]] && return 0 || return 1
 }
 
 ReturnAccount(){
-	#[[ -z $@ ]] && Logger "error" " ReturnAccount() : No account details received, or perhaps no account was running at this moment" && return 1
-	sed -i '/'"$b"'/c\'"$a"','"$b"','"$c"',Y' ${ACCOUNTS_FILE}
+	sed -i '/'"$b"',''/c'"$a"','"$b"','"$c"',Y' ${ACCOUNTS_FILE}
 	exitcode=$?
 	Logger "Success" "Account $b is being returned as available in ${ACCOUNTS_FILE} "
 	return 0
@@ -185,10 +182,6 @@ Reader(){
    echo $RAW >> "$LOGFOLDER/$(Date)-$username.log"
    echo $RAW | grep -i -e "captcha encountered" -e "Server busy or offline, reconnecting" -e "Login process failed" -e "decode byte 0x9c in position"
    if [ "$?" -eq "0" ]; then KillSingle; fi
-   #url="$(echo "$RAW" | grep -i "captcha" | sed -n -e 's/^.*\encountered, url: //p')"
-   #[[ $url ]] && Logger "Error" "Captcha Discovered with url : $url , moving to the next account ... " && pkill -2 -f $username && echo -e "captcha for accounr $1" >> "$THISPATH/accounts_with_captcha.txt" && return 0
-   #busy="$(echo "$RAW" | grep -i "Server busy or offline, reconnecting")"
-   #[[ $busy ]] && Logger "Server busy or offline .. skipping .. " && sleep 3 &&	ps -ef | grep -E "[p]okecli.py|[${username::1}]${username:1}" | awk '{print $2}' | xargs kill -9  && ps -ef | grep -iE "sleep $TIME_RUN" | awk '{print $2}' | xargs kill -9 && return
    done
   
 }
