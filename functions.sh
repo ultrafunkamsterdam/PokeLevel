@@ -41,15 +41,15 @@ Logger()
 	DISP_INFO_STYLE="${BIWhi}[ $PRETTYNAME | ${Reset}${BIWhi}Info${Reset}${BIWhi} ] $MESSAGE ${Reset}"
 	DISP_ERROR_STYLE="${BIWhi}[ $PRETTYNAME | ${Reset}${BIWhi}${On_Red}Error${Reset}${BIWhi} ] $MESSAGE ${Reset}"
 	DISP_SUCCESS_STYLE="${BIWhi}[ $PRETTYNAME | ${Reset}${BIWhi}${On_Gre}Success${Reset}${BIWhi} ] $MESSAGE ${Reset}"
-	LOGFILE_STYLE="[ $PRETTYNAME | $(TimeStamp) | ${LOGTYPE^^} ] $MESSAGE ${Reset}"
+	LOGFILE_STYLE="[ $PRETTYNAME | $(TimeStamp) | $(echo $LOGTYPE | tr '[a-z]' '[A-Z]') ] $MESSAGE ${Reset}"
 	#Logger Logic
 	[[ ! -z ${LOGTYPE} ]] && [[ -z ${MESSAGE} ]] && echo -e "${BIWhi} $LOGTYPE ${Reset}" && return 0
 	[[ -z $LOGTYPE ]] && echo -e "${BIWhi}${On_Red} Logger () : First argument missing ( Log type ) ${Reset}"
 	[[ -z $MESSAGE ]] && echo -e "${BIWhi}${On_Red} Logger () : Second argument missing ( Message ) ${Reset}"
-	[[ ${LOGTYPE^^} == "START" ]] && echo -e "$DISP_START"  
-	[[ ${LOGTYPE^^} == "ERROR" ]] && echo -e "$DISP_ERROR_STYLE" 
-	[[ ${LOGTYPE^^} == "SUCCESS" ]] && echo -e "$DISP_SUCCESS_STYLE"
-	[[ ${LOGTYPE^^} == "INFO" ]] && echo -e "$DISP_INFO_STYLE"
+        [[ "$(echo $LOGTYPE | tr '[a-z]' '[A-Z]')" == "START" ]] && echo -e "$DISP_START"  
+	[[ "$(echo $LOGTYPE | tr '[a-z]' '[A-Z]')" == "ERROR" ]] && echo -e "$DISP_ERROR_STYLE" 
+	[[ "$(echo $LOGTYPE | tr '[a-z]' '[A-Z]')" == "SUCCESS" ]] && echo -e "$DISP_SUCCESS_STYLE"
+	[[ "$(echo $LOGTYPE | tr '[a-z]' '[A-Z]')" == "INFO" ]] && echo -e "$DISP_INFO_STYLE"
 	return 0
 }
 
@@ -125,9 +125,11 @@ CreateConfig(){
 	
 	Logger "info" "CreateConfig() : Creating configuration file for $username (team: $TEAM) in $POGOBOT_CONFIGFOLDER/$username/$username.json"
 	
-	[[ ${TEAM^^} == "YELLOW" ]] && TEAM="3"
-	[[ ${TEAM^^} == "RED" ]] && TEAM="2"
-	[[ ${TEAM^^} == "BLUE" ]] && TEAM="1"
+        [[ "$(echo $TEAM | tr '[a-z]' '[A-Z]')" == "YELLOW" ]] && TEAM="3"
+	[[ "$(echo $TEAM | tr '[a-z]' '[A-Z]')" == "RED"  ]] && TEAM="2"
+	[[ "$(echo $TEAM | tr '[a-z]' '[A-Z]')" == "BLUE" ]] && TEAM="1"
+
+
 	
 	[[ ! -d $POGOBOT_CONFIGFOLDER/$username ]] && mkdir $POGOBOT_CONFIGFOLDER/$username
 	cat $POGOBOT_BASE_CONFIGFILE | jq .tasks[2].config.nickname="\"$(GenerateNick)\"" |  jq .tasks[2].config.team="$TEAM" > $POGOBOT_CONFIGFOLDER/tmpcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.json
