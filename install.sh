@@ -12,6 +12,8 @@
 PID=$$
 THISPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "${THISPATH}"
+PGBREPO="https://github.com/PokemonGoF/PokemonGo-Bot.git"
+BRANCH="master"
 
 . scriptconfig.conf
 . functions.sh
@@ -56,9 +58,10 @@ else
 fi
 sleep 2
 Logger success "Prerequisites are likely to be installed now"
-git clone --recursive https://github.com/PokemonGoF/PokemonGo-Bot.git $INSTALLDIR ; RV=$?
+git clone --recursive $PGBREPO $INSTALLDIR ; RV=$?
 [[ $RV -eq 0 ]] || Logger error "Something went wrong installing, error code $RV"
-
+cd "${INSTALLDIR}"
+git checkout $BRANCH
 sed -i 's/^Pokebotauth//g' $INSTALLDIR/setup.sh
 sed -i 's/^Pokebotconfig//g' $INSTALLDIR/setup.sh
 echo -e "${Re} \n"
