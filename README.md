@@ -1,4 +1,4 @@
-## ALTHOUGH THE API UPDATES CAUSES SOME ERRORS (ABOUT 1 PER 10 ACCOUNTS IN MY TEST), POKELEVEL WORKS LIKE A CHARM!  https://vid.me/fgl4 ##
+## demo: https://vid.me/fgl4 ##
 ### Please make sure your account activation is done by clicking the link in the mail before using PokeLevel ###
 ![PokeLevel](http://i.imgur.com/XHKPxy3.pngg)
 
