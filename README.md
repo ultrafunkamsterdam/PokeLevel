@@ -19,7 +19,7 @@
 
 ## Installation
  
-#### PokeLevel itself requires [JQ](https://stedolan.github.io/jq/) and [GPW](https://packages.debian.org/gpw) to run. These will be installed through install.sh.
+#### PokeLevel itself requires [JQ](https://stedolan.github.io/jq/) and [GPW](https://packages.debian.org/gpw). These will be installed through install.sh. In some weird cases the builtin 'shuf' tool is not available and needs to be installed.
 The BOT and API need python2.7 ,pip, nodejs, grunt,python-virtualenv which will be installed automatically too!
 
 #### For raspberry on Raspbarian first install pip-setuptools : sudo pip install -U pip setuptools
