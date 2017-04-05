@@ -25,19 +25,15 @@ if ! [ -z ${1} ] && [ ${1^^} == "UPDATE" ]; then
     echo -e "\n\n"
     Logger start " [ UPDATE PokemonGo-Bot for PokeLevel ] " 
     echo -e "\n"
-    findsetup=$(find . -name setup.sh | grep "local/setup");
-    if ! [ -z $findsetup ]; then 
-      Logger SUCCESS "PokemonGo-Bot update file found, proceeding to setup .."
-      $findsetup --update
-     ./
-      Logger SUCCESS "Update Completed .. Happy Levelling!"
-      sleep 2
-      exit 0
-    else
-      Logger ERROR "PokemonGo-Bot update file not found. Maybe you installed Pokemongo-Bot outside the PokeLevel folder"
-      sleep 2
-      exit 1
-      fi  
+    cd "${THISPATH}/PokemonGo-Bot"
+    ./setup.sh --upgrade
+    . bin/activate
+    pip install -r requirements.txt --upgrade
+    deactivate
+    cd "${THISPATH}" 
+    Logger SUCCESS "Update Completed .. Happy Levelling!" 
+    sleep 2
+    exit 0
 fi
 
 clear
