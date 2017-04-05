@@ -29,6 +29,7 @@ if ! [ -z ${1} ] && [ ${1^^} == "UPDATE" ]; then
     if ! [ -z $findsetup ]; then 
       Logger SUCCESS "PokemonGo-Bot update file found, proceeding to setup .."
       $findsetup --update
+     ./
       Logger SUCCESS "Update Completed .. Happy Levelling!"
       sleep 2
       exit 0
@@ -47,16 +48,9 @@ Logger info "Setting permissions for PokeLevel"
 chmod -R 775 . > /dev/null
 echo -e "\n"
 Logger "PokeLevel will install PokemonGo-Bot from https://github.com/PokemonGoF/PokemonGo-Bot"
-Logger "Recommended setup will be installing to $THISPATH/PokemonGo-Bot, so PokeLevel needs a minimum of configuration adjustments" 
-Logger "In case you definitely want another installation folder, you need to \
-correctly modify scriptconfig.conf and make sure you have non-sudo/root access to the folder"
-
-echo -e "${BIWhi} \n"
-read -p 'Installation folder | just press enter for default (recommended) :' INSTALLDIR
-echo -e "${Re} \n"
-clear
-
-[[ ! -z "$INSTALLDIR" ]] && mkdir -f $INSTALLDIR || INSTALLDIR=$THISPATH/PokemonGo-Bot ; 
+Logger "PokemonGo-Bot will be installed to $THISPATH/PokemonGo-Bot, so PokeLevel needs a minimum of configuration adjustments" 
+sleep 5
+INSTALLDIR=$THISPATH/PokemonGo-Bot ; 
 Logger "starting installation" 
 Logger "Checking prerequisites"
 echo -e "${BIWhi} \n"
