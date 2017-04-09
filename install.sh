@@ -51,11 +51,11 @@ Logger "starting installation"
 Logger "Checking prerequisites"
 echo -e "${BIWhi} \n"
 reqs=
-for x in python2.7 pip nodejs npm virtualenv; do 
+for x in python2.7 pip nodejs npm virtualenv gpw jq; do 
 which $x >/dev/null || { Logger warn "Requirement $x is needed" && reqs+="$x " ; }
 done
 sleep 2
-Logger info "Trying to install requirements .."
+Logger info "Trying to install requirements : $reqs"
 sleep 2
 if [ ! -z "$reqs" ];then
   for x in $reqs;do sudo apt -y -qq install $x && Logger success "$x successfully installed .." ; done
@@ -68,7 +68,7 @@ else
 		sudo apt-get install nodejs 
 fi
 sleep 2
-Logger success "Prerequisites are likely to be installed now"
+Logger success "Prerequisites are installed now"
 git clone --recursive $PGBREPO $INSTALLDIR ; RV=$?
 [[ $RV -eq 0 ]] || Logger error "Something went wrong installing, error code $RV"
 cd "${INSTALLDIR}"
