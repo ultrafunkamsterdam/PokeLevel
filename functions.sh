@@ -249,5 +249,7 @@ while [ "$(NumberAvailable)" -ge "1" ];do
         CreateAuthConfig
 	StartBot
 	sleep 1
+	echo -e "Removing ${THISPATH}/config/$b/$b.auth.json to prevent old hash keys from staying in conf"
+	rm -f config/$b/$b.auth.json 
 done
 }
