@@ -26,7 +26,7 @@ if ! [ -z ${1} ] && [ ${1^^} == "UPDATE" ]; then
     Logger start " [ UPDATE PokemonGo-Bot for PokeLevel ] " 
     echo -e "\n"
     cd "${THISPATH}/PokemonGo-Bot"
-    ./setup.sh --upgrade
+    ./setup.sh --update
     . bin/activate
     pip install -r requirements.txt --upgrade
     deactivate
