@@ -132,7 +132,7 @@ CreateConfig(){
 
 	
 	[[ ! -d $POGOBOT_CONFIGFOLDER/$username ]] && mkdir $POGOBOT_CONFIGFOLDER/$username
-	cat $POGOBOT_BASE_CONFIGFILE | jq .tasks[3].config.nickname="\"$(GenerateNick)\"" |  jq .tasks[2].config.team="$TEAM" > $POGOBOT_CONFIGFOLDER/tmpcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.json
+	cat $POGOBOT_BASE_CONFIGFILE | jq .tasks[3].config.nickname="\"$(GenerateNick)\"" |  jq .tasks[3].config.team="$TEAM" > $POGOBOT_CONFIGFOLDER/tmpcnf.json && mv $POGOBOT_CONFIGFOLDER/tmpcnf.json $POGOBOT_CONFIGFOLDER/$username/$username.json
 	[[ $? -eq 0 ]] && return 0 || return 1
 }
 
