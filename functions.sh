@@ -226,7 +226,7 @@ Logger " Location             : ${LOCATION}			                "
 Logger " Team(if not chosen)  : ${TEAM} (1=blue,2=red,3=yellow) "
 Logger " Timer                : ${TIME_RUN} seconds 	            "          
 echo -e "\n"									
-sleep 5
+sleep 3
 Logger Success "Starting Bot ... "
 for i in {00..30}; do echo -n -e ". " && sleep 0.1;done
 return 0
