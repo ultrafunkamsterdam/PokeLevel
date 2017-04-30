@@ -1,0 +1,640 @@
+{
+    "websocket_server": false,
+    "heartbeat_threshold": 10,
+    "enable_social": false,
+    "check_niantic_api": false,
+    "live_config_update": {
+        "enabled": false,
+        "tasks_only": false
+    },
+    "tasks": [{
+            "//NOTE: This task MUST be placed on the top of task list": {},
+            "type": "RandomAlivePause",
+            "config": {
+                "enabled": false,
+                "min_duration": "00:00:10",
+                "max_duration": "00:10:00",
+                "min_interval": "00:05:00",
+                "max_interval": "01:30:00"
+            }
+        },
+        {
+            "type": "HandleSoftBan"
+        },
+        {
+            "type": "CollectLevelUpReward",
+            "config": {
+                "collect_reward": true,
+                "level_limit": -1
+            }
+        },
+        {
+            "type": "CompleteTutorial",
+            "config": {
+                "enabled": true,
+                "// set a name": "",
+                "nickname": "",
+                "// 0 = No Team, 1 = Blue, 2 = Red, 3 = Yellow": "",
+                "team": 2
+            }
+        },
+        {
+            "type": "PokemonOptimizer",
+            "config": {
+                "enabled": true,
+                "min_slots_left": 5,
+                "action_wait_min": 1,
+                "action_wait_max": 3,
+                "transfer": true,
+                "evolve_cp_min": 50,
+                "evolve_all": "Pidgey,Weedle,Ledyba,Sentret,Natu,Rattata",
+                "evolve": true,
+                "debug": false,
+                "evolve_to_final": false,
+                "evolve_time": 15,
+                "evolve_for_xp": ["Psyduck", "Goldeen", "Poliwag", "Magnemite", "Staryu", "Wooper", "Tentacool", "Slowpoke", "Krabby", "Caterpie", "Weedle", "Pidgey", "Sentret", "Natu", "Ledyba", "Spinarak", "Marill", "Venonat", "Rattata", "Swinub", "Hoothoot", "Snubbull"],
+                "evolve_only_with_lucky_egg": false,
+                "evolve_count_for_lucky_egg": 10,
+                "may_use_lucky_egg": true,
+                "upgrade": false,
+                "upgrade_level": 30,
+                "groups": {
+                    "gym": [
+                        "Dragonite",
+                        "Snorlax",
+                        "Lapras",
+                        "Arcanine",
+                        "Blissey",
+                        "Rhydon",
+                        "Poliwrath",
+                        "Rhyhorn",
+                        "Golduck",
+                        "Magneton",
+                        "Vaporeon",
+                        "Jolteon",
+                        "Espeon",
+                        "Umbreon",
+                        "Exeggutor",
+                        "Machamp",
+                        "Slowbro",
+                        "Ursaring",
+                        "Gyarados"
+                    ]
+                },
+                "rules": [
+                    {
+                        "// Of all Pokemon with less than 124 candies, buddy the Pokemon having the highest maximum cp": {},
+                        "mode": "overall",
+                        "top": 1,
+                        "sort": [
+                            "max_cp",
+                            "cp"
+                        ],
+                        "keep": {
+                            "candy": -124
+                        },
+                        "evolve": false,
+                        "buddy": false
+                    },
+                    {
+                        "// Buddy the Pokemon having the less candies. In case no Pokemon match first rule": {},
+                        "mode": "overall",
+                        "top": 1,
+                        "sort": [
+                            "-candy",
+                            "max_cp",
+                            "cp"
+                        ],
+                        "evolve": false,
+                        "buddy": false
+                    },
+                    {
+                        "mode": "by_pokemon",
+                        "names": [
+                            "gym"
+                        ],
+                        "top": 5,
+                        "sort": [
+                            "iv",
+                            "ncp"
+                        ],
+                        "evolve": false,
+                        "upgrade": false
+                    },
+                    {
+                        "mode": "by_pokemon",
+                        "top": 1,
+                        "sort": [
+                            "cp"
+                        ],
+                        "evolve": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "BuddyPokemon",
+            "config": {
+                "enabled": true,
+                "buddy_list": "blissey, dratini, magikarp, bulbasaur, charmander, squirtle",
+                "best_in_family": true,
+                "// candy_limit = 0 means no limit, so it will never change current buddy": {},
+                "candy_limit": 0,
+                "candy_limit_absolute": 0,
+                "// force_first_change = true will always change buddy at start removing current one": {},
+                "force_first_change": false,
+                "buddy_change_wait_min": 3,
+                "buddy_change_wait_max": 5,
+                "min_interval": 120
+            }
+        },
+        {
+            "type": "IncubateEggs",
+            "config": {
+                "enabled": true,
+                "infinite_longer_eggs_first": false,
+                "breakable_longer_eggs_first": true,
+                "min_interval": 120,
+                "infinite": [
+                    2, 5
+                ],
+                "breakable": [
+                    5,
+                    10
+                ]
+            }
+        },
+        {
+            "type": "UpdateLiveStats",
+            "config": {
+                "enabled": true,
+                "min_interval": 300,
+                "stats": [
+                    "username",
+                    "uptime",
+                    "stardust_earned",
+                    "xp_earned",
+                    "xp_per_hour",
+                    "stops_visited",
+                    "total_stardust"
+                ],
+                "terminal_log": true,
+                "terminal_title": false
+            }
+        },
+        {
+            "type": "UpdateLiveInventory",
+            "config": {
+                "enabled": true,
+                "min_interval": 300,
+                "show_all_multiple_lines": false,
+                "items": [
+                    "pokemon_bag",
+                    "space_info",
+                    "pokeballs",
+                    "greatballs",
+                    "ultraballs",
+                    "razzberries",
+                    "pinapberries",
+                    "luckyegg"
+                ]
+            }
+        },
+        {
+            "type": "ShowBestPokemon",
+            "config": {
+                "enabled": true,
+                "min_interval": 300,
+                "amount": 5,
+                "order_by": "cp",
+                "info_to_show": [
+                    "cp",
+                    "ivcp",
+                    "dps",
+                    "hp"
+                ]
+            }
+        },
+        {
+            "type": "TransferPokemon",
+            "config": {
+                "enabled": false,
+                "min_free_slot": 5,
+                "transfer_wait_min": 3,
+                "transfer_wait_max": 5
+            }
+        },
+        {
+            "type": "NicknamePokemon",
+            "config": {
+                "enabled": true,
+                "nickname_above_iv": 0.80,
+                "nickname_template": "{name}{iv_pct}",
+                "nickname_wait_min": 1,
+                "nickname_wait_max": 3
+            }
+        },
+        {
+            "type": "EvolvePokemon",
+            "config": {
+                "enabled": true,
+                "log_interval": 300,
+                "// evolve only pidgey and drowzee": "",
+                "// evolve_list": [
+                    "pidgey, drowzee",
+                    "all"
+                ],
+                "// donot_evolve_list": [
+                    "none",
+                    "pidgey, drowzee"
+                ],
+                "// evolve all but pidgey and drowzee": "",
+                "evolve_list": ["pidgey, rattata, weedle"],
+                "donot_evolve_list": "none",
+                "first_evolve_by": "cp",
+                "evolve_above_cp": 50,
+                "evolve_above_iv": 0.1,
+                "logic": "and",
+                "min_evolve_speed": 10,
+                "max_evolve_speed": 20,
+                "min_pokemon_to_be_evolved": 1,
+                "use_lucky_egg": false
+            }
+        },
+        {
+            "type": "UseIncense",
+            "config": {
+                "use_incense": false,
+                "use_order": [
+                    "ordinary",
+                    "spicy",
+                    "cool",
+                    "floral"
+                ]
+            }
+        },
+        {
+            "type": "RecycleItems",
+            "config": {
+                "enabled": true,
+                "min_empty_space": 5,
+                "max_balls_keep": 150,
+                "max_potions_keep": 25,
+                "max_berries_keep": 100,
+                "max_revives_keep": 10,
+                "item_filter": {
+                    "Pokeball": {
+                        "keep": 150
+                    },
+                    "Potion": {
+                        "keep": 0
+                    },
+                    "Super Potion": {
+                        "keep": 5
+                    },
+                    "Hyper Potion": {
+                        "keep": 10
+                    },
+                    "Revive": {
+                        "keep": 20
+                    },
+                    "Razz Berry": {
+                        "keep": 50
+                    },
+                    "Pinap Berry": {
+                        "keep": 50
+                    },
+                    "Nanab Berry": {
+                        "keep": 0
+                    }
+                },
+                "recycle_wait_min": 1,
+                "recycle_wait_max": 3,
+                "recycle_force": true,
+                "recycle_force_min": "00:05:00",
+                "recycle_force_max": "00:30:00"
+            }
+        },
+        {
+            "type": "CatchLimiter",
+            "config": {
+                "enabled": true,
+                "min_balls": 50,
+                "duration": 5
+            }
+        },
+        {
+            "type": "CatchPokemon",
+            "config": {
+                "enabled": true,
+                "catch_visible_pokemon": true,
+                "catch_lured_pokemon": true,
+                "catch_incensed_pokemon": true,
+                "min_ultraball_to_keep": 5,
+                "use_pinap_on_vip": true,
+                "berry_threshold": 0.35,
+                "vip_berry_threshold": 0.9,
+                "treat_unseen_as_vip": false,
+                "daily_catch_limit": 200,
+                "vanish_settings": {
+                    "consecutive_vanish_limit": 5,
+                    "rest_duration_min": "02:00:00",
+                    "rest_duration_max": "04:00:00"
+                },
+                "catch_throw_parameters": {
+                    "excellent_rate": 0.6,
+                    "great_rate": 0.5,
+                    "nice_rate": 0.2,
+                    "normal_rate": 0.2,
+                    "spin_success_rate": 0.9,
+                    "hit_rate": 0.9
+                },
+                "catch_simulation": {
+                    "flee_count": 3,
+                    "flee_duration": 2,
+                    "catch_wait_min": 2,
+                    "catch_wait_max": 3,
+                    "berry_wait_min": 2,
+                    "berry_wait_max": 3,
+                    "changeball_wait_min": 2,
+                    "changeball_wait_max": 3,
+                    "newtodex_wait_min": 10,
+                    "newtodex_wait_max": 15
+                }
+            }
+        },
+        {
+            "type": "Sniper",
+            "config": {
+                "enabled": false,
+                "mode": "telegram",
+                "bullets": 1,
+                "homing_shots": true,
+                "special_iv": 100,
+                "order": [
+                    "missing",
+                    "vip",
+                    "priority"
+                ],
+                "sources": [
+                    {
+                        "enabled": false,
+                        "url": "http://localhost:5000/raw_data",
+                        "timeout": 3,
+                        "key": "pokemons",
+                        "mappings": {
+                            "id": {
+                                "param": "pokemon_id"
+                            },
+                            "name": {
+                                "param": "pokemon_name"
+                            },
+                            "latitude": {
+                                "param": "latitude"
+                            },
+                            "longitude": {
+                                "param": "longitude"
+                            },
+                            "expiration": {
+                                "param": "disappear_time",
+                                "format": "milliseconds"
+                            }
+                        }
+                    }
+                ],
+                "catch": {
+                    "Snorlax": 1000,
+                    "Dragonite": 1000,
+                    "Growlithe": 600,
+                    "Clefairy": 500,
+                    "Kabuto": 500,
+                    "Dratini": 500,
+                    "Dragonair": 500,
+                    "Mr. Mime": 500,
+                    "Magmar": 500,
+                    "Electabuzz": 500,
+                    "Tangela": 500,
+                    "Tauros": 500,
+                    "Primeape": 500,
+                    "Chansey": 500,
+                    "Pidgey": 100,
+                    "Caterpie": 100,
+                    "Weedle": 100
+                }
+            }
+        },
+        {
+            "type": "SpinFort",
+            "config": {
+                "enabled": true,
+                "spin_wait_min": 3,
+                "spin_wait_max": 5,
+                "daily_spin_limit": 200
+            }
+        },
+        {
+            "type": "UpdateWebInventory",
+            "config": {
+                "enabled": false
+            }
+        },
+        {
+            "type": "CampFort",
+            "config": {
+                "enabled": false,
+                "max_distance": 2000,
+                "min_forts_count": 2,
+                "min_lured_forts_count": 1,
+                "camping_time": 1800,
+                "moving_time": 600
+            }
+        },
+        {
+            "type": "MoveToFort",
+            "config": {
+                "enabled": true,
+                "lure_attraction": true,
+                "lure_max_distance": 200,
+                "walker": "PolylineWalker",
+                "log_interval": 60
+            }
+        },
+        {
+            "type": "FollowSpiral",
+            "config": {
+                "enabled": true,
+                "diameter": 20,
+                "step_size": 80
+            }
+        }
+    ],
+    "map_object_cache_time": 5,
+    "forts": {
+        "avoid_circles": false,
+        "max_circle_size": 100,
+        "cache_recent_forts": false
+    },
+    "pokemon_bag": {
+        "// if 'show_at_start' is true, it will log all the pokemons in the bag (not eggs) at bot start": {},
+        "show_at_start": false,
+        "// if 'show_count' is true, it will show the amount of each pokemon (minimum 1)": {},
+        "show_count": true,
+        "// if 'show_candies' is true, it will show the amount of candies for each pokemon": {},
+        "show_candies": true,
+        "// 'pokemon_info' parameter define which info to show for each pokemon": {},
+        "// the available options are": {},
+        "// ['cp', 'iv_ads', 'iv_pct', 'ivcp', 'ncp', 'level', 'hp', 'moveset', 'dps']": {},
+        "pokemon_info": [
+            "cp",
+            "hp",
+            "iv_pct",
+            "level",
+            "moveset",
+            "dps"
+        ]
+    },
+    "// walk max 4.16 min 3.16": {},
+    "walk_max": 9.16,
+    "walk_min": 3.16,
+    "alt_min": 0,
+    "alt_max": 20,
+    "sleep_schedule": {
+        "enabled": false,
+        "enable_reminder": false,
+        "reminder_interval": 600,
+        "entries": [
+            {
+                "enabled": true,
+                "time": "12:00",
+                "duration": "5:30",
+                "time_random_offset": "00:30",
+                "duration_random_offset": "00:30",
+                "wake_up_at_location": ""
+            },
+            {
+                "enabled": true,
+                "time": "17:45",
+                "duration": "3:00",
+                "time_random_offset": "01:00",
+                "duration_random_offset": "00:30",
+                "wake_up_at_location": ""
+            }
+        ]
+    },
+    "gps_default_altitude": 2.1331,
+    "replicate_gps_xy_noise": false,
+    "replicate_gps_z_noise": false,
+    "gps_xy_noise_range": 1.25E-4,
+    "gps_z_noise_range": 12.5,
+    "debug": false,
+    "test": false,
+    "walker_limit_output": false,
+    "health_record": true,
+    "location_cache": false,
+    "distance_unit": "km",
+    "reconnecting_timeout": 15,
+    "logging": {
+        "color": false,
+        "show_datetime": false,
+        "show_process_name": true,
+        "show_log_level": false,
+        "show_thread_name": false
+    },
+    "catch": {
+        "Magikarp": {
+            "always_catch": true
+        },
+        "Dratini": {
+            "always_catch": true
+        },
+        "Rattata": {
+            "candy_threshold": 800,
+            "catch_above_cp": 1200,
+            "catch_above_iv": 0,
+            "logic": "or"
+        },
+        "any": {
+            "always_catch": true,
+            "catch_above_cp": 25,
+            "catch_above_iv": 0.2
+        }
+    },
+    "release": {
+        "any": {
+            "release_below_cp": 150,
+            "release_below_iv": 0.35,
+            "release_below_ivcp": 0.10,
+            "keep_best_ivcp": 1,
+            "keep_best_cp": 2,
+            "logic": "or"
+        },
+        "all": {
+            "keep_best_cp": 100
+        }
+
+    },
+    "vips": {
+        "Any pokemon put here directly force to use Berry & Best Ball to capture, to secure the capture rate": {},
+        "any": {
+            "catch_above_cp": 1000,
+            "catch_above_iv": 0.70,
+            "logic": "and"
+        },
+        "Slowbro": {},
+        "Victreebel": {},
+        "Machamp": {},
+        "Poliwrath": {},
+        "Clefable": {},
+        "Nidoking": {},
+        "Venusaur": {},
+        "Charizard": {},
+        "Golduck": {},
+        "Nidoqueen": {},
+        "Vileplume": {},
+        "Blastoise": {},
+        "Omastar": {},
+        "Aerodactyl": {},
+        "Golem": {},
+        "Wigglytuff": {},
+        "Dewgong": {},
+        "Ninetales": {},
+        "Magmar": {},
+        "Kabutops": {},
+        "Electabuzz": {},
+        "Starmie": {},
+        "Jolteon": {},
+        "Rapidash": {},
+        "Pinsir": {},
+        "Scyther": {},
+        "Tentacruel": {},
+        "Gengar": {},
+        "Lapras": {},
+        "Moltres": {},
+        "Zapdos": {},
+        "Articuno": {},
+        "Rhydon": {},
+        "Seaking": {},
+        "Kangaskhan": {},
+        "Mewtwo": {},
+        "Dragonite": {},
+        "Dratini": {},
+        "Snorlax": {},
+        "Mew": {},
+        "Arcanine": {},
+        "Vaporeon": {},
+        "Gyarados": {},
+        "Exeggutor": {},
+        "Muk": {},
+        "Rhyhorn": {},
+        "Chansey": {},
+        "Weezing": {},
+        "Flareon": {},
+        "Pidgeot": {},
+        "Magikarp": {}
+    },
+    "websocket": {
+        "start_embedded_server": false,
+        "server_url": ""
+    }
+
+}
